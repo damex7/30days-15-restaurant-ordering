@@ -16,14 +16,14 @@ import { getTodaysSpecials } from '@/lib/data'
     3. React swaps the grey cards for the real ones. No client-side fetch,
        no loading state in JavaScript, no useEffect.
 */
-export async function TodaysSpecials() {
+export async function TodaysSpecials({ preloadFirst = false }: { preloadFirst?: boolean }) {
   const specials = await getTodaysSpecials()
   if (specials.length === 0) return <p className="text-muted">No specials today. Everything on the menu is still on!</p>
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {specials.map(({ dish, note }) => (
+      {specials.map(({ dish, note }, i) => (
         <li key={dish.id} className="flex">
-          <DishCard dish={dish} note={note} />
+          <DishCard dish={dish} note={note} preloadPhoto={preloadFirst && i === 0} />
         </li>
       ))}
     </ul>

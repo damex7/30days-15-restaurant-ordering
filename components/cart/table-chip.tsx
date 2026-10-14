@@ -12,10 +12,12 @@ export function TableChip() {
   const orderType = snapshot?.cart.orderType
   if (orderType?.kind !== 'dine-in') return null
   return (
-    <p className="flex items-center gap-1.5 rounded-pill bg-leaf-soft px-3 py-1.5 text-sm font-semibold text-leaf">
+    <p className="flex items-center gap-1.5 rounded-pill bg-leaf-soft px-2.5 py-1.5 text-sm font-semibold whitespace-nowrap text-leaf sm:px-3">
       <Icon name="table" className="size-4" />
       <span>
-        Table {orderType.table}
+        {/* On phones the header is tight: the icon and the number say enough, and screen readers still hear the word. */}
+        <span className="max-sm:sr-only">Table </span>
+        {orderType.table}
         <span className="sr-only"> (dine-in order)</span>
       </span>
     </p>

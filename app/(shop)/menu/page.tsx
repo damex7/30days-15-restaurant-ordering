@@ -35,7 +35,8 @@ export default function MenuPage({ searchParams }: PageProps<'/menu'>) {
         </summary>
         <div className="mt-4">
           <Suspense fallback={<SpecialsFallback />}>
-            <TodaysSpecials />
+            {/* On this page the first special is the biggest thing above the fold. */}
+            <TodaysSpecials preloadFirst />
           </Suspense>
         </div>
       </details>

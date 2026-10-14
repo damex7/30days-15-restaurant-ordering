@@ -57,7 +57,10 @@ export default async function HomePage() {
               <Link href="/menu" className={buttonClass({ size: 'lg' })}>
                 Order now <Icon name="arrowRight" />
               </Link>
-              <a href="#specials" className={buttonClass({ size: 'lg', variant: 'ghost', className: 'text-grill-ink hover:bg-grill-raised hover:text-grill-ink' })}>
+              <a
+                href="#specials"
+                className="inline-flex min-h-13 items-center rounded-pill border border-grill-muted/40 px-6 text-lg font-semibold text-grill-ink transition-colors hover:bg-grill-raised"
+              >
                 Today’s specials
               </a>
             </div>

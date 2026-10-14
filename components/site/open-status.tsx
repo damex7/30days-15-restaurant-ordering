@@ -32,21 +32,28 @@ export async function OpenStatus({ tone = 'grill' }: { tone?: 'grill' | 'paper' 
         : `Opens ${status.reopens}`
 
   return (
-    <p
-      className={cn(
-        'inline-flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-pill px-4 py-2 text-sm',
-        tone === 'grill' ? 'bg-grill-raised text-grill-ink' : 'bg-sunken text-ink',
-      )}
-    >
-      <span aria-hidden className={cn('size-2.5 rounded-pill', open ? 'animate-pulse-dot bg-leaf' : 'bg-pepper')} />
-      <span className="font-bold">{headline}</span>
-      <span className={tone === 'grill' ? 'text-grill-muted' : 'text-muted'}>
-        · {detail} · It’s {formatLagosTime(at)} in Abuja
-      </span>
-    </p>
+    <div className="flex flex-col items-start gap-1.5">
+      <p
+        className={cn(
+          'inline-flex items-center gap-2 rounded-pill px-4 py-2 text-sm',
+          tone === 'grill' ? 'bg-grill-raised text-grill-ink' : 'bg-sunken text-ink',
+        )}
+      >
+        <span aria-hidden className={cn('size-2.5 shrink-0 rounded-pill', open ? 'animate-pulse-dot bg-leaf' : 'bg-pepper')} />
+        <span>
+          <span className="font-bold">{headline}</span> · {detail}
+        </span>
+      </p>
+      <p className={cn('pl-4 text-xs', tone === 'grill' ? 'text-grill-muted' : 'text-muted')}>It’s {formatLagosTime(at)} in Abuja (Lagos time).</p>
+    </div>
   )
 }
 
 export function OpenStatusFallback() {
-  return <TextSkeleton className="h-9 w-72 max-w-full rounded-pill" label="Checking whether the kitchen is open" />
+  return (
+    <div className="flex flex-col items-start gap-1.5">
+      <TextSkeleton className="h-9 w-72 max-w-full rounded-pill" label="Checking whether the kitchen is open" />
+      <span aria-hidden className="skeleton ml-4 h-4 w-44 opacity-40" />
+    </div>
+  )
 }

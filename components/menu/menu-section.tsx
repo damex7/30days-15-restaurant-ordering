@@ -9,7 +9,7 @@ import type { MenuSection as MenuSectionData } from '@/lib/schema/menu'
  * with an attribute, rendered on the server and passed to the tabs as
  * children.
  */
-export function MenuSection({ section, preloadFirst }: { section: MenuSectionData; preloadFirst?: boolean }) {
+export function MenuSection({ section }: { section: MenuSectionData }) {
   const headingId = `${section.id}-heading`
   return (
     <section id={section.id} data-category={section.id} aria-labelledby={headingId} tabIndex={-1} className="pt-8 outline-none first:pt-4">
@@ -19,9 +19,9 @@ export function MenuSection({ section, preloadFirst }: { section: MenuSectionDat
       <div aria-hidden className="stripe mt-2 h-1 w-16 rounded-pill" />
       <p className="mt-3 text-muted">{section.blurb}</p>
       <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {section.dishes.map((dish, i) => (
+        {section.dishes.map((dish) => (
           <li key={dish.id} className="flex">
-            <DishCard dish={dish} preloadPhoto={preloadFirst && i === 0} />
+            <DishCard dish={dish} />
           </li>
         ))}
       </ul>

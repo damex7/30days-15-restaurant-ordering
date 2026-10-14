@@ -45,10 +45,25 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null)
 
+const subscribeToNothing = () => () => {}
+
 export function useCart(): CartContextValue {
   const value = use(CartContext)
   if (!value) throw new Error('useCart() must be used inside <CartProvider>')
-  return value
+  /*
+    A SECOND HYDRATION GUARD, PER COMPONENT. The provider's null server
+    snapshot covers components that hydrate together with it. But a
+    component inside its own <Suspense> (the sticky cart bar) can hydrate
+    LATER, after the provider has already switched to the real cart. It
+    would then render "3 items" over server HTML that said nothing: a
+    hydration error (found in testing).
+
+    This tiny store returns false during that component's own hydration
+    and true afterwards, so every consumer starts from "cart not known
+    yet", wherever it sits in the tree.
+  */
+  const hydrated = useSyncExternalStore(subscribeToNothing, () => true, () => false)
+  return hydrated ? value : { ...value, snapshot: null }
 }
 
 export function CartProvider({ catalog, children }: { catalog: PriceCatalog; children: ReactNode }) {

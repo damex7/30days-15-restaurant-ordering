@@ -21,8 +21,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-paper/92 backdrop-blur supports-[backdrop-filter]:bg-paper/80">
       <div className="mx-auto flex h-16 max-w-content items-center gap-2 px-4 sm:gap-4 sm:px-6">
         <Logo />
-        <nav aria-label="Main" className="ml-2 flex items-center gap-1 sm:ml-4">
-          <Link href="/menu" className="rounded-control px-3 py-2 font-semibold text-muted hover:bg-sunken hover:text-ink">
+        <nav aria-label="Main" className="flex items-center gap-1 sm:ml-4">
+          <Link href="/menu" className="rounded-control px-2 py-2 font-semibold text-muted hover:bg-sunken hover:text-ink sm:px-3">
             Menu
           </Link>
         </nav>

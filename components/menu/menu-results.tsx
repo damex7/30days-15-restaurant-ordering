@@ -48,8 +48,8 @@ export async function MenuResults({ searchParams }: { searchParams: Promise<RawS
         </EmptyState>
       ) : (
         <CategoryTabs tabs={sections.map((s) => ({ id: s.id, name: s.name, count: s.dishes.length }))}>
-          {sections.map((section, i) => (
-            <MenuSection key={section.id} section={section} preloadFirst={i === 0} />
+          {sections.map((section) => (
+            <MenuSection key={section.id} section={section} />
           ))}
         </CategoryTabs>
       )}
