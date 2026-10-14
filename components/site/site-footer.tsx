@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { LogoMark } from '@/components/site/logo'
+import { OpeningHours } from '@/components/site/opening-hours'
 import { getRestaurant } from '@/lib/data'
-import { hoursTable } from '@/lib/hours'
 import { site } from '@/lib/site'
 
 /**
@@ -27,14 +27,7 @@ export async function SiteFooter() {
         </div>
         <div>
           <h2 className="text-base font-bold">Opening hours</h2>
-          <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
-            {hoursTable(restaurant.hours).map((row) => (
-              <div key={row.days} className="contents">
-                <dt className="text-muted">{row.days}</dt>
-                <dd className="tabular">{row.time}</dd>
-              </div>
-            ))}
-          </dl>
+          <OpeningHours hours={restaurant.hours} className="mt-2" />
           <p className="mt-2 text-xs text-subtle">Lagos time (WAT). Last orders 30 minutes before closing.</p>
         </div>
         <div>
