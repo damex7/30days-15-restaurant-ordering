@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * BÙKÀ DESIGN TOKENS: palette "Palm oil & pepper".
+ * A bùkà is a no-nonsense Nigerian canteen: enamel plates, a pot of red stew,
+ * a menu board on the wall. The page is garri cream; the brand colour is
+ * palm-oil orange; ata rodo (scotch bonnet) red is the accent; banana-leaf
+ * green marks vegetarian food and "open"; plantain yellow marks specials.
+ * Dark mode is the charcoal of the suya grill at night.
+ *
+ * Every colour is defined ONCE here, holding both values in
+ * light-dark(light, dark). The browser picks one from the page's
+ * `color-scheme`, which the theme toggle controls through data-theme, so
+ * components never need `dark:` classes for colour.
+ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* `--color-*: initial` removes Tailwind's default palette: a stray
+   `bg-blue-600` simply doesn't exist instead of quietly going off-brand. */
+@theme {
+  --color-*: initial;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Surfaces: page, raised (cards, dialogs), sunken (wells, inputs). */
+  --color-paper: light-dark(#fbf3e4, #16110e);
+  --color-raised: light-dark(#fffaf1, #211915);
+  --color-sunken: light-dark(#f4e6cd, #100c0a);
+  --color-line: light-dark(#ead8b9, #3b2e26);
+  --color-line-strong: light-dark(#d4bb92, #57463b);
+
+  /* Text. */
+  --color-ink: light-dark(#1d1410, #f8ecdb);
+  --color-muted: light-dark(#5c4a3d, #c7b39f);
+  --color-subtle: light-dark(#7a6656, #9b8673);
+
+  /* Brand: palm-oil orange. `palm-ink` is text placed ON a palm background. */
+  --color-palm: light-dark(#bf3f0b, #fb8c4c);
+  --color-palm-hover: light-dark(#9a3210, #fda873);
+  --color-palm-ink: light-dark(#ffffff, #1d0d05);
+  --color-palm-soft: light-dark(#fbe1cc, #3c1d0e);
+
+  /* Accent: ata rodo red. Spice levels, sold out, errors. */
+  --color-pepper: light-dark(#b3201a, #f8877d);
+  --color-pepper-soft: light-dark(#fbe0da, #421614);
+
+  /* Banana leaf: vegetarian, open, success. */
+  --color-leaf: light-dark(#2a6f45, #7fd19f);
+  --color-leaf-soft: light-dark(#dff0e3, #13311f);
+
+  /* Plantain: specials and highlights. `plantain` is for text, `plantain-fill` for shapes. */
+  --color-plantain: light-dark(#835600, #f4c867);
+  --color-plantain-soft: light-dark(#fcefc6, #3b2c0b);
+  --color-plantain-fill: #f2b33d;
+
+  /* The grill: a charcoal band that stays dark in BOTH themes (hero, cart bar). */
+  --color-grill: light-dark(#1d1410, #0c0806);
+  --color-grill-raised: light-dark(#2d211b, #1f1713);
+  --color-grill-ink: #fbf3e4;
+  --color-grill-muted: #cdb9a4;
+
+  /* Focus: a deep indigo that stands out against orange, red and cream. */
+  --color-focus: light-dark(#2d3fa3, #a9b6ff);
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Typography. The variables come from next/font in app/layout.tsx. */
+  --font-display: var(--font-bricolage), "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-work-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Radii, named by purpose. Plates are round; menu boards are not. */
+  --radius-control: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-plate: 1.75rem;
+  --radius-pill: 999px;
+
+  /* Shadows tinted palm-oil brown rather than grey. */
+  --shadow-card: 0 1px 2px rgb(70 30 10 / 0.07), 0 1px 1px rgb(70 30 10 / 0.04);
+  --shadow-raised: 0 14px 30px -14px rgb(70 30 10 / 0.3), 0 3px 8px -3px rgb(70 30 10 / 0.12);
+  --shadow-bar: 0 -10px 30px -12px rgb(20 8 2 / 0.45);
+
+  --container-content: 76rem;
+  --container-reading: 44rem;
+
+  --animate-rise: rise 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pop: pop 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  --animate-bump: bump 0.35s ease-out;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  }
+  @keyframes shimmer {
+    from { background-position: 150% 0; }
+    to { background-position: -50% 0; }
+  }
+  @keyframes bump {
+    40% { transform: scale(1.25); }
+  }
+  @keyframes pulse-dot {
+    50% { opacity: 0.35; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * THEME SWITCHING. `color-scheme` decides which side of light-dark() wins.
+ * - No attribute (no saved choice, or JavaScript off): follow the OS.
+ * - data-theme="light" | "dark": set before first paint by the inline script
+ *   in app/layout.tsx, so a saved choice never flashes the other theme.
+ */
+:root {
+  color-scheme: light dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* For the rare `dark:` that isn't a colour (e.g. dimming photos a little). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* The sticky category bar sits under the header: anchor jumps
+       (#grills) stop below both instead of hiding the heading. */
+    scroll-padding-top: 8.5rem;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Prices line up in columns. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* One clear focus ring for keyboard users everywhere. */
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-palm-soft);
+    color: var(--color-ink);
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  /* Native <dialog> backdrop for the dish quick view. */
+  dialog::backdrop {
+    background: rgb(20 10 4 / 0.6);
+    backdrop-filter: blur(2px);
+  }
+  /* While a modal dialog is open the page behind it doesn't scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+}
+
+/* Skeleton shimmer for loading states. */
+@utility skeleton {
+  background-image: linear-gradient(90deg, var(--color-sunken) 0%, var(--color-line) 50%, var(--color-sunken) 100%);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+  border-radius: var(--radius-control);
+}
+
+/* The thin woven stripe under section headings: palm, plantain, leaf, pepper. */
+@utility stripe {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-palm) 0 25%,
+    var(--color-plantain-fill) 25% 50%,
+    var(--color-leaf) 50% 75%,
+    var(--color-pepper) 75% 100%
+  );
+}
+
+/* Hide the scrollbar of the category tab strip (it still scrolls by touch and keyboard). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * REDUCED MOTION: people who ask their OS for less motion get none. Smooth
+ * scrolling for the category tabs turns into an instant jump too.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
