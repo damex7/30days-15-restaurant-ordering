@@ -29,8 +29,11 @@ export default function MenuPage({ searchParams }: PageProps<'/menu'>) {
       </p>
 
       <details className="group mt-6 rounded-card border border-plantain-soft bg-plantain-soft/50 p-4 open:pb-5" open>
-        <summary className="flex cursor-pointer list-none items-center gap-2 font-display text-xl font-extrabold [&::-webkit-details-marker]:hidden">
-          <Icon name="sparkle" className="text-plantain" /> Today’s specials
+        <summary className="flex cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+          {/* A heading inside <summary> is allowed, and keeps the page outline: h1 Menu → h2 Specials → h3 dishes. */}
+          <h2 className="flex items-center gap-2 text-xl font-extrabold">
+            <Icon name="sparkle" className="text-plantain" /> Today’s specials
+          </h2>
           <Icon name="chevronDown" className="ml-auto size-5 transition-transform group-open:rotate-180" />
         </summary>
         <div className="mt-4">
