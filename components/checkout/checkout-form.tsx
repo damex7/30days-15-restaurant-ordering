@@ -87,7 +87,7 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
         <h2 className="text-xl font-bold">A couple of things first</h2>
         <ul className="mt-3 flex flex-col gap-2">
           {blockers.map((b) => (
-            <li key={b} className="flex items-start gap-2 text-pepper">
+            <li key={b} className="flex items-start gap-2 text-danger">
               <Icon name="alert" className="mt-0.5 size-4" /> {b}
             </li>
           ))}
@@ -111,11 +111,11 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
     <form action={formAction} noValidate className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-start">
       <div className="flex flex-col gap-6">
         {errors && (
-          <div ref={summaryRef} tabIndex={-1} role="alert" aria-labelledby="error-summary-title" className="rounded-card border-2 border-pepper bg-pepper-soft p-5 outline-none">
-            <h2 id="error-summary-title" className="flex items-center gap-2 text-lg font-bold text-pepper">
+          <div ref={summaryRef} tabIndex={-1} role="alert" aria-labelledby="error-summary-title" className="rounded-card border-2 border-danger bg-danger-soft p-5 outline-none">
+            <h2 id="error-summary-title" className="flex items-center gap-2 text-lg font-bold text-danger">
               <Icon name="alert" /> We couldn’t place your order yet
             </h2>
-            <ul className="mt-2 flex list-disc flex-col gap-1 pl-6 text-pepper">
+            <ul className="mt-2 flex list-disc flex-col gap-1 pl-6 text-danger">
               {errors.errors.map((e) => (
                 <li key={e}>{e}</li>
               ))}
@@ -154,7 +154,7 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
           </Field>
         </Section>
 
-        <Section title={ORDER_KIND_LABELS[orderType.kind]} action={<Link href="/cart" className="text-sm font-semibold text-palm hover:underline">Change</Link>}>
+        <Section title={ORDER_KIND_LABELS[orderType.kind]} action={<Link href="/cart" className="text-sm font-semibold text-leaf hover:underline">Change</Link>}>
           {orderType.kind === 'delivery' && (
             <>
               <p className="text-muted">
@@ -167,7 +167,7 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
           )}
           {orderType.kind === 'pickup' &&
             (slots.length === 0 ? (
-              <p className="text-pepper">There are no pickup times left today or tomorrow. Please check back later.</p>
+              <p className="text-danger">There are no pickup times left today or tomorrow. Please check back later.</p>
             ) : (
               <Field id="slot" label="Pickup time" hint={`Lagos time. It’s ${nowLabel} now; the earliest slot is 30 minutes away.`} error={fieldError('slot')}>
                 <select id="slot" name="slot" defaultValue={values.slot ?? slots[0]?.value} {...invalid('slot', fieldError('slot'))} className={inputClass}>
@@ -198,8 +198,8 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
             <legend className="sr-only">How you’ll pay</legend>
             <div className="flex flex-col gap-2">
               {payments.map((method, i) => (
-                <label key={method} className="flex cursor-pointer items-start gap-3 rounded-control border border-line p-3 has-checked:border-palm has-checked:bg-palm-soft">
-                  <input type="radio" name="payment" value={method} defaultChecked={values.payment ? values.payment === method : i === 0} className="mt-1 size-5 accent-palm" />
+                <label key={method} className="flex cursor-pointer items-start gap-3 rounded-control border border-line p-3 has-checked:border-leaf has-checked:bg-leaf-soft">
+                  <input type="radio" name="payment" value={method} defaultChecked={values.payment ? values.payment === method : i === 0} className="mt-1 size-5 accent-leaf" />
                   <span>
                     <span className="block font-semibold">{PAYMENT_LABELS[method].label}</span>
                     <span className="block text-sm text-muted">{PAYMENT_LABELS[method].hint}</span>
@@ -208,7 +208,7 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
               ))}
             </div>
             {fieldError('payment') && (
-              <p id="payment-error" className="mt-2 text-sm font-semibold text-pepper">
+              <p id="payment-error" className="mt-2 text-sm font-semibold text-danger">
                 {fieldError('payment')}
               </p>
             )}
@@ -228,7 +228,7 @@ export function CheckoutForm({ action, kitchen, slots, areas, minDeliveryOrderKo
           <h2 id="checkout-summary" className="text-xl font-extrabold">
             Your order
           </h2>
-          <Link href="/cart" className="text-sm font-semibold text-palm hover:underline">
+          <Link href="/cart" className="text-sm font-semibold text-leaf hover:underline">
             Edit
           </Link>
         </div>
@@ -267,7 +267,7 @@ function SubmitButton({ total }: { total: number }) {
   )
 }
 
-const inputClass = 'block min-h-12 w-full rounded-control border border-line-strong bg-raised px-3 py-2 aria-invalid:border-pepper aria-invalid:bg-pepper-soft/40'
+const inputClass = 'block min-h-12 w-full rounded-control border border-line-strong bg-raised px-3 py-2 aria-invalid:border-danger aria-invalid:bg-danger-soft/40'
 
 /** aria-invalid and aria-describedby wire each input to its hint and error message. */
 function invalid(id: string, error: string | undefined, hasHint = true) {
@@ -288,7 +288,7 @@ function Field({ id, label, hint, error, children }: { id: string; label: string
       )}
       {children}
       {error && (
-        <p id={`${id}-error`} className="flex items-center gap-1 text-sm font-semibold text-pepper">
+        <p id={`${id}-error`} className="flex items-center gap-1 text-sm font-semibold text-danger">
           <Icon name="alert" className="size-4" /> {error}
         </p>
       )}

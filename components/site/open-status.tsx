@@ -17,7 +17,7 @@ import { cn } from '@/lib/cn'
   a Date to format. Nothing here can disagree between server and browser,
   so there is no hydration mismatch to worry about (see lib/hours.ts).
 */
-export async function OpenStatus({ tone = 'grill' }: { tone?: 'grill' | 'paper' }) {
+export async function OpenStatus({ tone = 'forest' }: { tone?: 'forest' | 'paper' }) {
   const [restaurant, at] = await Promise.all([getRestaurant(), now()])
   const status = kitchenStatus(at, restaurant)
   const open = status.kind === 'open'
@@ -36,15 +36,15 @@ export async function OpenStatus({ tone = 'grill' }: { tone?: 'grill' | 'paper' 
       <p
         className={cn(
           'inline-flex items-center gap-2 rounded-pill px-4 py-2 text-sm',
-          tone === 'grill' ? 'bg-grill-raised text-grill-ink' : 'bg-sunken text-ink',
+          tone === 'forest' ? 'bg-forest-raised text-forest-ink' : 'bg-sunken text-ink',
         )}
       >
-        <span aria-hidden className={cn('size-2.5 shrink-0 rounded-pill', open ? 'animate-pulse-dot bg-leaf' : 'bg-pepper')} />
+        <span aria-hidden className={cn('size-2.5 shrink-0 rounded-pill', open ? cn('animate-pulse-dot', tone === 'forest' ? 'bg-forest-leaf' : 'bg-leaf') : 'bg-danger')} />
         <span>
           <span className="font-bold">{headline}</span> · {detail}
         </span>
       </p>
-      <p className={cn('pl-4 text-xs', tone === 'grill' ? 'text-grill-muted' : 'text-muted')}>It’s {formatLagosTime(at)} in Abuja (Lagos time).</p>
+      <p className={cn('pl-4 text-xs', tone === 'forest' ? 'text-forest-muted' : 'text-muted')}>It’s {formatLagosTime(at)} in Abuja (Lagos time).</p>
     </div>
   )
 }

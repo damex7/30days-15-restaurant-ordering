@@ -31,9 +31,9 @@ export function StickyCartBar() {
     <div className="fixed inset-x-0 bottom-0 z-30 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
       <Link
         href="/cart"
-        className="flex animate-pop items-center gap-3 rounded-card bg-grill px-4 py-3 text-grill-ink shadow-bar"
+        className="flex animate-pop items-center gap-3 rounded-card bg-forest px-4 py-3 text-forest-ink shadow-bar"
       >
-        <span className="tabular grid size-8 place-items-center rounded-pill bg-palm text-sm font-bold text-palm-ink">{summary.itemCount}</span>
+        <span className="tabular grid size-8 place-items-center rounded-pill bg-chilli text-sm font-bold text-chilli-ink">{summary.itemCount}</span>
         <span className="font-semibold">View cart</span>
         <span className="tabular ml-auto font-semibold">{formatNaira(summary.subtotalKobo)}</span>
         <Icon name="arrowRight" />

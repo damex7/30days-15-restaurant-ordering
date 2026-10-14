@@ -27,12 +27,13 @@ export function StatusTracker({ stage, kind, times }: { stage: Stage; kind: Fulf
               aria-hidden
               className={cn(
                 'relative grid size-9 shrink-0 place-items-center rounded-pill border-2',
-                done && 'border-leaf bg-leaf text-white',
-                now && 'border-palm bg-palm-soft text-palm',
+                // Done steps are leaf green; the step happening NOW is the chilli accent.
+                done && 'border-leaf bg-leaf text-leaf-ink',
+                now && 'border-chilli bg-chilli-soft text-chilli',
                 !done && !now && 'border-line bg-raised text-subtle',
               )}
             >
-              {done ? <Icon name="check" className="size-5" /> : now ? <span className="size-2.5 animate-pulse-dot rounded-pill bg-palm" /> : <span className="text-sm font-bold">{i + 1}</span>}
+              {done ? <Icon name="check" className="size-5" /> : now ? <span className="size-2.5 animate-pulse-dot rounded-pill bg-chilli" /> : <span className="text-sm font-bold">{i + 1}</span>}
             </span>
             <div className="pt-1">
               <p className={cn('font-bold', !done && !now && 'text-muted')}>

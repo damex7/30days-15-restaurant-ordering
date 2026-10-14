@@ -25,7 +25,7 @@ export function CartBadge() {
           // A new key on every change replays the little "bump" animation.
           key={count}
           aria-hidden
-          className="tabular absolute -top-0.5 -right-0.5 grid h-5 min-w-5 animate-bump place-items-center rounded-pill bg-palm px-1 text-xs font-bold text-palm-ink"
+          className="tabular absolute -top-0.5 -right-0.5 grid h-5 min-w-5 animate-bump place-items-center rounded-pill bg-chilli px-1 text-xs font-bold text-chilli-ink"
         >
           {count}
         </span>

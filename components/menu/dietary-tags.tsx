@@ -17,7 +17,7 @@ export function DietaryTags({ dietary, className }: { dietary: Dietary; classNam
   return (
     <ul className={cn('flex flex-wrap gap-1.5', className)} aria-label="Dietary information">
       {dietary.spice > 0 && (
-        <li className="flex items-center gap-1 rounded-pill bg-pepper-soft py-0.5 pr-2 pl-1.5 text-xs font-semibold text-pepper">
+        <li className="flex items-center gap-1 rounded-pill bg-chilli-soft py-0.5 pr-2 pl-1.5 text-xs font-semibold text-chilli">
           <span className="flex" aria-hidden>
             {Array.from({ length: dietary.spice }, (_, i) => (
               <Icon key={i} name="flame" className="-mx-0.5 size-3.5" />

@@ -23,7 +23,7 @@ export function DishCard({ dish, note, preloadPhoto }: { dish: PublicDish; note?
     <article className="group relative flex flex-col overflow-hidden rounded-card border border-line bg-raised shadow-card transition-shadow hover:shadow-raised">
       <DishPhoto dish={dish} sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw" className="aspect-[4/3]" preload={preloadPhoto} />
       {dish.soldOut && (
-        <span className="absolute top-3 left-3 rounded-pill bg-pepper px-3 py-1 text-xs font-bold tracking-wide text-white uppercase">Sold out today</span>
+        <span className="absolute top-3 left-3 rounded-pill bg-danger px-3 py-1 text-xs font-bold tracking-wide text-danger-ink uppercase">Sold out today</span>
       )}
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-start justify-between gap-3">
@@ -35,7 +35,7 @@ export function DishCard({ dish, note, preloadPhoto }: { dish: PublicDish; note?
               {dish.name}
             </Link>
           </h3>
-          <p className="tabular shrink-0 font-semibold">{formatNaira(dish.priceKobo)}</p>
+          <p className="tabular shrink-0 font-bold text-chilli">{formatNaira(dish.priceKobo)}</p>
         </div>
         {note && <p className="text-sm font-semibold text-plantain">{note}</p>}
         <p className="line-clamp-2 text-sm text-muted">{dish.description}</p>

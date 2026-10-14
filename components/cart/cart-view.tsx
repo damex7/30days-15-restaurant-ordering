@@ -83,7 +83,7 @@ export function CartView({ areas, minDeliveryOrderKobo, tables }: Props) {
                   <CartLineRow key={view.line.lineId} view={view} onQuantity={(q) => setQuantity(view.line.lineId, q)} onRemove={() => remove(view.line.lineId)} />
                 ))}
               </ul>
-              <Link href="/menu" className="mt-3 inline-flex items-center gap-1 font-semibold text-palm hover:underline">
+              <Link href="/menu" className="mt-3 inline-flex items-center gap-1 font-semibold text-leaf hover:underline">
                 <Icon name="plus" className="size-4" /> Add more from the menu
               </Link>
             </section>
@@ -100,7 +100,7 @@ export function CartView({ areas, minDeliveryOrderKobo, tables }: Props) {
             {blockers.length > 0 && (
               <ul id="checkout-blockers" className="mt-4 flex flex-col gap-2 text-sm">
                 {blockers.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-pepper">
+                  <li key={b} className="flex items-start gap-2 text-danger">
                     <Icon name="alert" className="mt-0.5 size-4" /> {b}
                   </li>
                 ))}
@@ -139,10 +139,10 @@ function CartLineRow({ view, onQuantity, onRemove }: { view: CartLineView; onQua
             {priced.ok && priced.value.options.length > 0 && <p className="mt-0.5 text-sm text-muted">{priced.value.options.join(' · ')}</p>}
             {priced.ok && <p className="tabular mt-0.5 text-sm text-subtle">{formatNaira(priced.value.unitKobo)} each</p>}
           </div>
-          <p className="tabular shrink-0 font-semibold">{priced.ok ? formatNaira(priced.value.lineKobo) : '—'}</p>
+          <p className={cn('tabular shrink-0 font-bold', priced.ok ? 'text-chilli' : 'text-subtle')}>{priced.ok ? formatNaira(priced.value.lineKobo) : '—'}</p>
         </div>
         {!priced.ok && (
-          <p className="flex items-start gap-2 text-sm font-semibold text-pepper">
+          <p className="flex items-start gap-2 text-sm font-semibold text-danger">
             <Icon name="alert" className="mt-0.5 size-4" /> {describeProblem(priced.error)}
           </p>
         )}
@@ -194,11 +194,11 @@ function OrderTypePicker({
               key={k.kind}
               className={cn(
                 'flex cursor-pointer items-center gap-3 rounded-card border-2 bg-raised p-4 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus',
-                orderType?.kind === k.kind ? 'border-palm bg-palm-soft' : 'border-line hover:border-line-strong',
+                orderType?.kind === k.kind ? 'border-leaf bg-leaf-soft' : 'border-line hover:border-line-strong',
               )}
             >
               <input type="radio" name="order-kind" value={k.kind} checked={orderType?.kind === k.kind} onChange={() => choose(k.kind)} className="sr-only" />
-              <Icon name={k.icon} className="size-6 text-palm" />
+              <Icon name={k.icon} className="size-6 text-leaf" />
               <span>
                 <span className="block font-bold">{k.label}</span>
                 <span className="block text-sm text-muted">{k.hint}</span>

@@ -93,11 +93,11 @@ export function CategoryTabs({ tabs, children }: { tabs: readonly Tab[]; childre
             aria-current={active === tab.id ? 'true' : undefined}
             className={cn(
               'flex shrink-0 items-center gap-2 rounded-pill border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors',
-              active === tab.id ? 'border-grill bg-grill text-grill-ink' : 'border-line-strong bg-raised text-muted hover:text-ink',
+              active === tab.id ? 'border-leaf bg-leaf text-leaf-ink' : 'border-line-strong bg-raised text-muted hover:text-ink',
             )}
           >
             {tab.name}
-            <span className={cn('tabular text-xs', active === tab.id ? 'text-grill-muted' : 'text-subtle')}>{tab.count}</span>
+            <span className={cn('tabular text-xs', active === tab.id ? 'text-leaf-ink' : 'text-subtle')}>{tab.count}</span>
           </a>
         ))}
       </nav>

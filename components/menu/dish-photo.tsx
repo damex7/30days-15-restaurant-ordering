@@ -43,11 +43,11 @@ export function DishPhoto({ dish, sizes, className, preload }: Props) {
 function PlatePlaceholder({ label }: { label: string }) {
   return (
     <svg viewBox="0 0 200 150" role="img" aria-label={label} className="absolute inset-0 size-full" preserveAspectRatio="xMidYMid slice">
-      <rect width="200" height="150" fill="var(--color-palm-soft)" />
+      <rect width="200" height="150" fill="var(--color-leaf-soft)" />
       <circle cx="100" cy="78" r="58" fill="var(--color-raised)" stroke="var(--color-line-strong)" strokeWidth="3" />
-      <circle cx="100" cy="78" r="46" fill="none" stroke="var(--color-palm)" strokeWidth="2" strokeDasharray="4 6" opacity="0.6" />
-      <rect x="88" y="38" width="24" height="72" rx="9" fill="var(--color-focus)" opacity="0.25" stroke="var(--color-focus)" strokeWidth="2" />
-      <rect x="93" y="28" width="14" height="12" rx="3" fill="var(--color-focus)" opacity="0.8" />
+      <circle cx="100" cy="78" r="46" fill="none" stroke="var(--color-chilli)" strokeWidth="2" strokeDasharray="4 6" opacity="0.6" />
+      <rect x="88" y="38" width="24" height="72" rx="9" fill="var(--color-leaf)" opacity="0.25" stroke="var(--color-leaf)" strokeWidth="2" />
+      <rect x="93" y="28" width="14" height="12" rx="3" fill="var(--color-leaf)" opacity="0.8" />
       <path d="M90 64h20" stroke="var(--color-raised)" strokeWidth="6" opacity="0.8" />
     </svg>
   )

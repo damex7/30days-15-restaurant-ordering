@@ -39,8 +39,8 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero: the charcoal band, dark in both themes like the suya grill. */}
-      <section className="bg-grill text-grill-ink">
+      {/* Hero: the deep forest-green band, dark in both themes, like the leaf the food is served on. */}
+      <section className="bg-forest text-forest-ink">
         <div className="mx-auto grid max-w-content gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.1fr_1fr] md:items-center md:py-16">
           <div className="flex flex-col items-start gap-5">
             <Suspense fallback={<OpenStatusFallback />}>
@@ -49,17 +49,20 @@ export default async function HomePage() {
             <h1 className="text-4xl leading-[1.05] font-extrabold sm:text-5xl lg:text-6xl">
               Proper Nigerian food, <span className="text-plantain-fill">cooked like home.</span>
             </h1>
-            <p className="max-w-prose text-lg text-grill-muted">
+            <p className="max-w-prose text-lg text-forest-muted">
               Smoky party jollof, àmàlà with ewédú and gbẹ̀gìrì, suya off the evening fire. From our kitchen in Wuse 2 to your door, the counter or your
               table.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/menu" className={buttonClass({ size: 'lg' })}>
+              {/* Chilli red on forest green is dark-on-dark (1.8:1), and red/green is
+                  the pair colour-blind visitors confuse most, so on the band the
+                  button gets a cream ring that stands out at about 10:1. */}
+              <Link href="/menu" className={buttonClass({ size: 'lg', className: 'ring-2 ring-forest-ink' })}>
                 Order now <Icon name="arrowRight" />
               </Link>
               <a
                 href="#specials"
-                className="inline-flex min-h-13 items-center rounded-pill border border-grill-muted/40 px-6 text-lg font-semibold text-grill-ink transition-colors hover:bg-grill-raised"
+                className="inline-flex min-h-13 items-center rounded-pill border border-forest-muted/40 px-6 text-lg font-semibold text-forest-ink transition-colors hover:bg-forest-raised"
               >
                 Today’s specials
               </a>
@@ -90,7 +93,7 @@ export default async function HomePage() {
           <ul className="grid gap-4 sm:grid-cols-3">
             {ways.map((way) => (
               <li key={way.title} className="flex gap-4 rounded-card border border-line bg-raised p-5">
-                <span className="grid size-12 shrink-0 place-items-center rounded-pill bg-palm-soft text-palm">
+                <span className="grid size-12 shrink-0 place-items-center rounded-pill bg-leaf-soft text-leaf">
                   <Icon name={way.icon} className="size-6" />
                 </span>
                 <div>
@@ -118,7 +121,7 @@ export default async function HomePage() {
             <h2 id="popular-heading" className="text-3xl font-extrabold">
               Customer favourites
             </h2>
-            <Link href="/menu" className="flex items-center gap-1 font-semibold text-palm hover:underline">
+            <Link href="/menu" className="flex items-center gap-1 font-semibold text-leaf hover:underline">
               Full menu <Icon name="chevronRight" className="size-4" />
             </Link>
           </div>
@@ -138,7 +141,7 @@ export default async function HomePage() {
               Come and eat with us
             </h2>
             <p className="mt-2 flex items-start gap-2 text-muted">
-              <Icon name="pin" className="mt-0.5 text-palm" /> {restaurant.address}
+              <Icon name="pin" className="mt-0.5 text-leaf" /> {restaurant.address}
             </p>
             <p className="mt-2 text-sm text-muted">Twelve tables, a fan that works, and the same food we deliver.</p>
           </div>

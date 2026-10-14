@@ -58,7 +58,7 @@ export function DishOptionsForm({ dishId, closeOnAdd = false }: { dishId: DishId
 
   if (!dish) return null
   if (dish.soldOut) {
-    return <p className="rounded-card bg-pepper-soft p-4 font-semibold text-pepper">Sold out today. Please check back tomorrow.</p>
+    return <p className="rounded-card bg-danger-soft p-4 font-semibold text-danger">Sold out today. Please check back tomorrow.</p>
   }
 
   const priced = priceLine(dish, choices, quantity)
@@ -118,7 +118,7 @@ export function DishOptionsForm({ dishId, closeOnAdd = false }: { dishId: DishId
                       className={cn(
                         'flex min-h-11 items-center gap-3 rounded-control px-3 py-2',
                         disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:bg-sunken',
-                        checked && 'bg-palm-soft',
+                        checked && 'bg-leaf-soft',
                       )}
                     >
                       <input
@@ -128,11 +128,11 @@ export function DishOptionsForm({ dishId, closeOnAdd = false }: { dishId: DishId
                         checked={checked}
                         disabled={disabled}
                         onChange={(e) => toggle(group, option.id, e.target.checked)}
-                        className="size-5 shrink-0 accent-palm"
+                        className="size-5 shrink-0 accent-leaf"
                       />
                       <span className="flex-1">
                         {option.label}
-                        {option.soldOut && <span className="ml-2 text-sm font-semibold text-pepper">Sold out</span>}
+                        {option.soldOut && <span className="ml-2 text-sm font-semibold text-danger">Sold out</span>}
                       </span>
                       <span className="tabular text-sm text-muted">{formatDelta(option.priceDeltaKobo)}</span>
                     </label>
@@ -151,7 +151,7 @@ export function DishOptionsForm({ dishId, closeOnAdd = false }: { dishId: DishId
           id={`${formId}-error`}
           role="alert"
           tabIndex={-1}
-          className="flex items-start gap-2 rounded-card bg-pepper-soft p-3 font-semibold text-pepper"
+          className="flex items-start gap-2 rounded-card bg-danger-soft p-3 font-semibold text-danger"
         >
           <Icon name="alert" className="mt-0.5" /> {error}
         </p>

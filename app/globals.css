@@ -1,12 +1,20 @@
 @import "tailwindcss";
 
 /*
- * BÙKÀ DESIGN TOKENS: palette "Palm oil & pepper".
- * A bùkà is a no-nonsense Nigerian canteen: enamel plates, a pot of red stew,
- * a menu board on the wall. The page is garri cream; the brand colour is
- * palm-oil orange; ata rodo (scotch bonnet) red is the accent; banana-leaf
- * green marks vegetarian food and "open"; plantain yellow marks specials.
- * Dark mode is the charcoal of the suya grill at night.
+ * BÙKÀ DESIGN TOKENS: palette "Leaf & chilli".
+ * A bùkà is a no-nonsense Nigerian canteen: food served on banana and
+ * uma leaves, green enamel pots, a pot of red stew, a menu board on the
+ * wall. So:
+ *   - LEAF GREEN is the base: the brand, links, icons, chosen options.
+ *   - FOREST is a deeper green band that stays dark in both themes (hero,
+ *     cart bar), like the leaf the food is served on.
+ *   - CREAM is the page in light mode (garri, ọkà flour, a menu board).
+ *   - CHILLI RED (ata rodo, the scotch bonnet) is the accent, used
+ *     sparingly so it means "act" or "money": primary buttons and prices.
+ *   - PLANTAIN GOLD only marks specials. Errors get their own cooler red
+ *     (`danger`), always with an icon and words.
+ * The README explains the choices; `npm run check:contrast` proves every
+ * text/background pair below meets WCAG AA in both themes.
  *
  * Every colour is defined ONCE here, holding both values in
  * light-dark(light, dark). The browser picks one from the page's
@@ -19,44 +27,55 @@
 @theme {
   --color-*: initial;
 
-  /* Surfaces: page, raised (cards, dialogs), sunken (wells, inputs). */
-  --color-paper: light-dark(#fbf3e4, #16110e);
-  --color-raised: light-dark(#fffaf1, #211915);
-  --color-sunken: light-dark(#f4e6cd, #100c0a);
-  --color-line: light-dark(#ead8b9, #3b2e26);
-  --color-line-strong: light-dark(#d4bb92, #57463b);
+  /* Surfaces: page, raised (cards, dialogs), sunken (wells, inputs).
+     Warm cream by day; by night, near-black with a little green in it. */
+  --color-paper: light-dark(#fbf3e4, #0f1511);
+  --color-raised: light-dark(#fffaf1, #172019);
+  --color-sunken: light-dark(#f3e8d2, #0a0f0c);
+  --color-line: light-dark(#e4d7bd, #29372c);
+  --color-line-strong: light-dark(#c9b893, #405344);
 
-  /* Text. */
-  --color-ink: light-dark(#1d1410, #f8ecdb);
-  --color-muted: light-dark(#5c4a3d, #c7b39f);
-  --color-subtle: light-dark(#7a6656, #9b8673);
+  /* Text: warm near-black on cream, cream on the dark green. */
+  --color-ink: light-dark(#1c1c15, #f3eedf);
+  --color-muted: light-dark(#524f42, #c3c8b8);
+  --color-subtle: light-dark(#696656, #9ea594);
 
-  /* Brand: palm-oil orange. `palm-ink` is text placed ON a palm background. */
-  --color-palm: light-dark(#bf3f0b, #fb8c4c);
-  --color-palm-hover: light-dark(#9a3210, #fda873);
-  --color-palm-ink: light-dark(#ffffff, #1d0d05);
-  --color-palm-soft: light-dark(#fbe1cc, #3c1d0e);
+  /* BASE: deep leaf green. `leaf-ink` is text placed ON a leaf background. */
+  --color-leaf: light-dark(#1e5b3a, #7fcf9c);
+  --color-leaf-hover: light-dark(#16472d, #a0ddb5);
+  --color-leaf-ink: light-dark(#ffffff, #07200f);
+  --color-leaf-soft: light-dark(#dcebdd, #163423);
 
-  /* Accent: ata rodo red. Spice levels, sold out, errors. */
-  --color-pepper: light-dark(#b3201a, #f8877d);
-  --color-pepper-soft: light-dark(#fbe0da, #421614);
+  /* The forest band: deep green that stays dark in BOTH themes (hero, cart bar). */
+  --color-forest: light-dark(#143f29, #0e2a1b);
+  --color-forest-raised: light-dark(#1f5236, #1a3f2a);
+  --color-forest-ink: #fbf3e4;
+  --color-forest-muted: #c6d8c4;
+  /* A bright leaf for small marks ON the band (the "open now" dot), where
+     the base leaf green would vanish into the forest green. */
+  --color-forest-leaf: #8fd8a8;
 
-  /* Banana leaf: vegetarian, open, success. */
-  --color-leaf: light-dark(#2a6f45, #7fd19f);
-  --color-leaf-soft: light-dark(#dff0e3, #13311f);
+  /* ACCENT: chilli red, for primary buttons and prices. In dark mode it has
+     to get lighter to stay readable, so it stays fully saturated and on
+     the red hue: a pale, low-saturation red reads as coral or peach. */
+  --color-chilli: light-dark(#b3261e, #ff5a5a);
+  --color-chilli-hover: light-dark(#921c16, #ff7f7f);
+  --color-chilli-ink: light-dark(#ffffff, #2a0606);
+  --color-chilli-soft: light-dark(#f9dfdb, #3d1414);
 
-  /* Plantain: specials and highlights. `plantain` is for text, `plantain-fill` for shapes. */
-  --color-plantain: light-dark(#835600, #f4c867);
-  --color-plantain-soft: light-dark(#fcefc6, #3b2c0b);
-  --color-plantain-fill: #f2b33d;
+  /* Errors and "sold out": a cooler, deeper red than chilli, so a price
+     never looks like an error. Always shown with an icon and words. */
+  --color-danger: light-dark(#9b1b30, #ff94a5);
+  --color-danger-ink: light-dark(#ffffff, #2a0710);
+  --color-danger-soft: light-dark(#f8dde2, #3e1520);
 
-  /* The grill: a charcoal band that stays dark in BOTH themes (hero, cart bar). */
-  --color-grill: light-dark(#1d1410, #0c0806);
-  --color-grill-raised: light-dark(#2d211b, #1f1713);
-  --color-grill-ink: #fbf3e4;
-  --color-grill-muted: #cdb9a4;
+  /* Plantain gold: specials only. `plantain` is for text, `plantain-fill` for shapes. */
+  --color-plantain: light-dark(#755000, #f2cb6b);
+  --color-plantain-soft: light-dark(#fbefc8, #3a2e0e);
+  --color-plantain-fill: #efc14a;
 
-  /* Focus: a deep indigo that stands out against orange, red and cream. */
+  /* Focus: a deep indigo, the one hue not used anywhere else, so the ring
+     stands out against green, red and cream alike. */
   --color-focus: light-dark(#2d3fa3, #a9b6ff);
   --color-white: #ffffff;
   --color-black: #000000;
@@ -73,10 +92,10 @@
   --radius-plate: 1.75rem;
   --radius-pill: 999px;
 
-  /* Shadows tinted palm-oil brown rather than grey. */
-  --shadow-card: 0 1px 2px rgb(70 30 10 / 0.07), 0 1px 1px rgb(70 30 10 / 0.04);
-  --shadow-raised: 0 14px 30px -14px rgb(70 30 10 / 0.3), 0 3px 8px -3px rgb(70 30 10 / 0.12);
-  --shadow-bar: 0 -10px 30px -12px rgb(20 8 2 / 0.45);
+  /* Shadows tinted deep green rather than grey. */
+  --shadow-card: 0 1px 2px rgb(14 40 24 / 0.08), 0 1px 1px rgb(14 40 24 / 0.04);
+  --shadow-raised: 0 14px 30px -14px rgb(14 40 24 / 0.32), 0 3px 8px -3px rgb(14 40 24 / 0.12);
+  --shadow-bar: 0 -10px 30px -12px rgb(4 16 9 / 0.5);
 
   --container-content: 76rem;
   --container-reading: 44rem;
@@ -163,7 +182,7 @@
   }
 
   ::selection {
-    background-color: var(--color-palm-soft);
+    background-color: var(--color-leaf-soft);
     color: var(--color-ink);
   }
 
@@ -190,14 +209,14 @@
   border-radius: var(--radius-control);
 }
 
-/* The thin woven stripe under section headings: palm, plantain, leaf, pepper. */
+/* The thin woven stripe under section headings: leaf, plantain, chilli, forest. */
 @utility stripe {
   background-image: linear-gradient(
     90deg,
-    var(--color-palm) 0 25%,
+    var(--color-leaf) 0 25%,
     var(--color-plantain-fill) 25% 50%,
-    var(--color-leaf) 50% 75%,
-    var(--color-pepper) 75% 100%
+    var(--color-chilli) 50% 75%,
+    var(--color-forest) 75% 100%
   );
 }
 

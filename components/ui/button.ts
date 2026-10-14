@@ -10,10 +10,10 @@ const base =
   'inline-flex items-center justify-center gap-2 rounded-pill font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-55 aria-disabled:cursor-not-allowed aria-disabled:opacity-55'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-palm text-palm-ink hover:bg-palm-hover',
+  primary: 'bg-chilli text-chilli-ink hover:bg-chilli-hover',
   secondary: 'border border-line-strong bg-raised text-ink hover:bg-sunken',
   ghost: 'text-muted hover:bg-sunken hover:text-ink',
-  danger: 'text-pepper hover:bg-pepper-soft',
+  danger: 'text-danger hover:bg-danger-soft',
 }
 
 const sizes: Record<Size, string> = {

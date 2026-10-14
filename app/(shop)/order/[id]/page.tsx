@@ -106,7 +106,7 @@ async function OrderDetails({ params, searchParams }: Pick<PageProps<'/order/[id
             </a>
           </section>
 
-          <Link href="/menu" className="inline-flex items-center gap-1 font-semibold text-palm hover:underline">
+          <Link href="/menu" className="inline-flex items-center gap-1 font-semibold text-leaf hover:underline">
             <Icon name="plus" className="size-4" /> {order.fulfilment.kind === 'dine-in' ? 'Order another round' : 'Start a new order'}
           </Link>
         </div>

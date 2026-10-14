@@ -31,6 +31,7 @@ npm run dev          # http://localhost:3000
 
 npm run typecheck    # next typegen && tsc --noEmit
 npm run lint
+npm run check:contrast   # every text/background pair, light and dark, against WCAG AA
 npm run build && npm start
 ```
 
@@ -194,6 +195,28 @@ What that tells me, honestly:
 - **The biggest app-specific chunk, about 36 KB, is Zod plus the cart store.** Zod reaches the browser because the cart validates what it reads back from localStorage. That validation is worth having (see Day 14), but `zod/mini` would be a cheaper way to do it. That's a good follow-up.
 - On partially prerendered pages, the price catalogue (about 16 KB before compression) appears twice in the HTML, once in the static shell's payload and once in the resumed stream. It compresses well, but it's a reason to keep provider props small.
 
+## Colour: "Leaf & chilli"
+
+The palette deliberately avoids peach, tangerine and orange as the main colour, the warm-orange look most food-delivery apps share. Bùkà's colours come from the table instead:
+
+| Token | Light | Dark | Used for | Why |
+| --- | --- | --- | --- | --- |
+| `leaf` | `#1e5b3a` | `#7fcf9c` | **The base**: links, icons, chosen options, the active category tab, completed order steps | Food in a bùkà is wrapped in uma and banana leaves, and served from green enamel pots. A deep leaf green feels fresh, and it's the colour of the Nigerian flag without copying it |
+| `forest` | `#143f29` | `#0e2a1b` | The hero band and the phone cart bar | A deeper leaf green that stays dark in both themes, so cream text on it always reads |
+| `paper` | `#fbf3e4` | `#0f1511` | The page | Warm cream, like garri, yam flour or a chalk menu board; softer on the eyes than white and it makes food photos look warm. Dark mode is near-black with a little green, not grey |
+| `chilli` | `#b3261e` | `#ff5a5a` | **The accent**: primary buttons, prices, the cart count, spice tags, the step happening now | Ata rodo, the scotch bonnet in every stew. Red is the colour of "act" and of money, so it's used sparingly: when something is red, it's a price or a button |
+| `danger` | `#9b1b30` | `#ff94a5` | Errors and "sold out" | A cooler, deeper red than chilli, so a price never looks like an error. Errors also always carry an icon and words |
+| `plantain` | `#755000` / fill `#efc14a` | `#f2cb6b` | Today's specials, the hero headline highlight | Ripe-plantain gold, a highlight only, never a main colour |
+| `focus` | `#2d3fa3` | `#a9b6ff` | Keyboard focus rings | Indigo appears nowhere else in the palette, so the focus ring stands out against green, red and cream |
+
+The tokens live in the Tailwind v4 `@theme` block in `app/globals.css`. Each one holds both themes as `light-dark(light, dark)`, so components never need `dark:` colour classes. `--color-*: initial` removes Tailwind's default palette, so an off-brand `bg-orange-500` simply doesn't exist.
+
+**Contrast, checked rather than eyeballed.** `npm run check:contrast` reads the tokens from `globals.css` and checks 33 text/background pairs the UI actually uses in **both** themes: 4.5:1 for text, 3:1 for large text and UI marks. Every pair passes AA; prices are 5.9:1 (light) and 6.0:1 (dark). Building it found three real problems, all fixed:
+
+- White "Sold out" text on the danger red was 2.1:1 in dark mode, where danger is a light pink. It now uses its own `danger-ink`.
+- My first dark-mode chilli, `#f47b70`, was readable but looked coral, close to the peach I was avoiding. A pale red with low saturation reads as coral or salmon, so the dark chilli is now a saturated, true red (`#ff5a5a`).
+- A chilli button on the forest band is dark-on-dark in light mode (1.8:1), and red/green is the pair colour-blind visitors confuse most. On the band the button gets a cream ring (10.7:1).
+
 ## Accessibility
 
 - A skip link, one `<h1>` per page, and headings in order (page → section → dish).
@@ -202,6 +225,7 @@ What that tells me, honestly:
 - The status tracker is an ordered list with `aria-current="step"`; colour is never the only signal (spice levels and diet tags have words and icons).
 - Visible focus rings everywhere; the modal returns focus to the card that opened it.
 - `prefers-reduced-motion` turns off animations and smooth scrolling.
+- Colour contrast meets WCAG AA in both themes, checked by `npm run check:contrast` (see [Colour](#colour-leaf--chilli)).
 - Checked at 360 px wide with no horizontal scroll, in light and dark themes. The theme follows the OS, and a toggle saves your choice without a flash on reload.
 
 ## Out of scope

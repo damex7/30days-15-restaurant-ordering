@@ -22,7 +22,8 @@ export function Totals({ totals, showDelivery, className }: { totals: OrderTotal
       )}
       <div className="flex justify-between gap-4 border-t border-line pt-2 text-lg font-bold">
         <dt>Total</dt>
-        <dd className="tabular">{formatNaira(totals.totalKobo)}</dd>
+        {/* The one number that matters most gets the chilli accent. */}
+        <dd className="tabular text-chilli">{formatNaira(totals.totalKobo)}</dd>
       </div>
     </dl>
   )

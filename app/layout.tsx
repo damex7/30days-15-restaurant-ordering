@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#fbf3e4' },
-    { media: '(prefers-color-scheme: dark)', color: '#16110e' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f1511' },
   ],
 }
 
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         {/* SKIP LINK: the first Tab stop on every page. Layouts put id="main" on <main>. */}
         <a
           href="#main"
-          className="sr-only z-50 rounded-control bg-palm px-4 py-2 font-semibold text-palm-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-50 rounded-control bg-chilli px-4 py-2 font-semibold text-chilli-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

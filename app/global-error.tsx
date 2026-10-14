@@ -20,7 +20,7 @@ export default function GlobalError({ error, retry }: { error: Error & { digest?
             .
           </p>
           {error.digest && <p className="mt-2 text-xs text-subtle">Reference {error.digest}</p>}
-          <button type="button" onClick={() => retry()} className="mt-6 min-h-11 rounded-pill bg-palm px-5 font-semibold text-palm-ink">
+          <button type="button" onClick={() => retry()} className="mt-6 min-h-11 rounded-pill bg-chilli px-5 font-semibold text-chilli-ink">
             Try again
           </button>
         </main>

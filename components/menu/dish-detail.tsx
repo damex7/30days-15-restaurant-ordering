@@ -64,7 +64,7 @@ export function DishDetail({ dish, variant }: { dish: PublicDish; variant: 'page
               {dish.localName}
             </p>
           )}
-          <p className="tabular mt-2 text-2xl font-bold">
+          <p className="tabular mt-2 text-2xl font-bold text-chilli">
             {dish.choiceGroups.length > 0 && <span className="text-base font-normal text-muted">from </span>}
             {formatNaira(dish.priceKobo)}
           </p>

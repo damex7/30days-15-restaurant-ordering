@@ -14,7 +14,7 @@ export function Receipt({ order }: { order: PlacedOrder }) {
   return (
     <section aria-labelledby="receipt-heading" className="rounded-card border border-line bg-raised p-5">
       <h2 id="receipt-heading" className="flex items-center gap-2 text-xl font-extrabold">
-        <Icon name="receipt" className="text-palm" /> Receipt
+        <Icon name="receipt" className="text-leaf" /> Receipt
       </h2>
 
       {order.priceCheck && (
