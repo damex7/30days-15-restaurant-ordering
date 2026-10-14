@@ -1,3 +1,4 @@
+import { formatNaira } from '@/lib/money'
 import { describeProblem, orderTotals, priceLine, type LineProblem, type OrderTotals, type PricedLine } from '@/lib/pricing'
 import type { Result } from '@/lib/result'
 import type { CartLine, CartState, OrderTypeDraft } from '@/lib/schema/cart'
@@ -25,6 +26,23 @@ export type CartSummary = OrderTotals & {
 export function deliveryFeeFor(orderType: OrderTypeDraft | null, areas: readonly DeliveryArea[]): number {
   if (orderType?.kind !== 'delivery' || !orderType.areaId) return 0
   return areas.find((a) => a.id === orderType.areaId)?.feeKobo ?? 0
+}
+
+/**
+ * What still stands between this cart and the checkout, as sentences.
+ * Empty list = ready. The cart page shows these next to a disabled button;
+ * the Server Action checks the same rules again for real.
+ */
+export function checkoutBlockers(summary: CartSummary, orderType: OrderTypeDraft | null, minDeliveryOrderKobo: number): string[] {
+  const blockers: string[] = []
+  if (summary.itemCount === 0) return ['Your cart is empty.']
+  blockers.push(...summary.problems)
+  if (!orderType) blockers.push('Choose delivery, pickup or dine-in.')
+  else if (orderType.kind === 'delivery') {
+    if (!orderType.areaId) blockers.push('Choose the area we’re delivering to.')
+    if (summary.subtotalKobo < minDeliveryOrderKobo) blockers.push(`Delivery orders start at ${formatNaira(minDeliveryOrderKobo)}. Add ${formatNaira(minDeliveryOrderKobo - summary.subtotalKobo)} more, or choose pickup.`)
+  }
+  return blockers
 }
 
 export function summariseCart(cart: CartState, catalog: PriceCatalog, areas: readonly DeliveryArea[] = []): CartSummary {

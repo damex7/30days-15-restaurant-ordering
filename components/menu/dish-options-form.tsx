@@ -9,6 +9,7 @@ import { useId, useRef, useState, type FormEvent } from 'react'
 import { useCart } from '@/components/cart/cart-provider'
 import { buttonClass } from '@/components/ui/button'
 import { Icon } from '@/components/ui/icon'
+import { QuantityStepper } from '@/components/ui/quantity-stepper'
 import { cn } from '@/lib/cn'
 import { formatDelta, formatNaira } from '@/lib/money'
 import { describeProblem, priceLine } from '@/lib/pricing'
@@ -157,29 +158,7 @@ export function DishOptionsForm({ dishId, closeOnAdd = false }: { dishId: DishId
       )}
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center rounded-pill border border-line-strong bg-raised" role="group" aria-label="Quantity">
-          <button
-            type="button"
-            onClick={() => changeQuantity(quantity - 1)}
-            disabled={quantity <= 1}
-            className="grid size-11 place-items-center rounded-pill hover:bg-sunken disabled:opacity-40"
-          >
-            <Icon name="minus" />
-            <span className="sr-only">One fewer</span>
-          </button>
-          <output className="tabular w-8 text-center text-lg font-bold" aria-live="polite" aria-label={`Quantity ${quantity}`}>
-            {quantity}
-          </output>
-          <button
-            type="button"
-            onClick={() => changeQuantity(quantity + 1)}
-            disabled={quantity >= CART_LIMITS.maxQuantity}
-            className="grid size-11 place-items-center rounded-pill hover:bg-sunken disabled:opacity-40"
-          >
-            <Icon name="plus" />
-            <span className="sr-only">One more</span>
-          </button>
-        </div>
+        <QuantityStepper value={quantity} onChange={changeQuantity} label={dish.name} />
         <button type="submit" className={buttonClass({ size: 'lg', className: 'flex-1 justify-between' })}>
           <span>Add {quantity > 1 ? `${quantity} ` : ''}to cart</span>
           <span className="tabular">{priced.ok ? formatNaira(priced.value.lineKobo) : formatNaira(dish.priceKobo * quantity)}</span>
