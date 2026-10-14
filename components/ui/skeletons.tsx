@@ -70,6 +70,23 @@ export function MenuSkeleton() {
   )
 }
 
+/** The dish quick view's body: photo, name, price, description, choices, button. */
+export function DishDetailSkeleton() {
+  return (
+    <div role="status" className="grid gap-6 p-5">
+      <span className="sr-only">Loading the dish</span>
+      <div aria-hidden className="skeleton aspect-[16/9] rounded-plate" />
+      <div aria-hidden className="flex flex-col gap-3">
+        <div className="skeleton h-7 w-28" />
+        <div className="skeleton h-4 w-full" />
+        <div className="skeleton h-4 w-4/5" />
+        <div className="skeleton mt-2 h-40 w-full rounded-card" />
+        <div className="skeleton h-13 w-full rounded-pill" />
+      </div>
+    </div>
+  )
+}
+
 /** A line of text that hasn't arrived yet (the open/closed pill, an ETA). */
 export function TextSkeleton({ className, label }: { className?: string; label: string }) {
   return (

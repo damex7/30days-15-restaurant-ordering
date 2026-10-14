@@ -59,7 +59,15 @@ export function Dialog({ open, onClose, title, size = 'lg', className, children 
   useLayoutEffect(() => {
     const dialog = ref.current
     if (!dialog) return
-    const handleClose = () => onCloseRef.current()
+    // The browser fires `close` as a separate task, AFTER close() returns.
+    // So a close() from a cleanup can arrive once the Effect has already run
+    // again and reopened the dialog: React's Strict Mode does exactly that
+    // in development (mount, clean up, mount again), and so can a quick
+    // Activity hide/show. By then the dialog is open, so it wasn't the user
+    // closing it, and we ignore it.
+    const handleClose = () => {
+      if (!dialog.open) onCloseRef.current()
+    }
     if (open && !dialog.open) {
       opener.current = document.activeElement as HTMLElement | null
       dialog.showModal()
